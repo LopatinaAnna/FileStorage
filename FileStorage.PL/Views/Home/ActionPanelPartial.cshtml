@@ -1,0 +1,19 @@
+﻿<div class="search">
+    @if (TempData["SearchValue"] is null)
+    {
+        TempData["SearchValue"] = "Find...";
+    }
+    @using (Html.BeginForm("SearchFile", "Home", FormMethod.Post, new { @name = "submit-search", @class = "search-panel" }))
+    {
+    <input type="search" placeholder=@TempData["SearchValue"] name="search" pattern="^[A-Za-zА-Яа-яЁёІі0-9\\s]+$" required maxlength="30" minlength="1" />
+    <input type="submit" class="search-button" value="Search" />
+    }
+    @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "upload-form", @name = "Upload" }))
+    {
+    <label for="file" class="label"><b><i class="fas fa-upload"></i> Choose files</b></label>
+    <input type="file" class="choose-files" id="file" name="uploads" multiple>
+    <input type="submit" class="upload-btn" value="Upload" name="submit-upload" id="run-upload" disabled />
+    }
+</div>
+<div class="upload-error-message">@TempData["ValidationMessage"]</div>
+<div class="upload-message">@TempData["UploadInfo"]</div>

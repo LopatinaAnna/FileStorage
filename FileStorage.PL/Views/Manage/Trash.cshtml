@@ -1,0 +1,44 @@
+﻿@model IEnumerable<FileStorage.PL.Models.FileViewModel>
+@{
+    ViewBag.Title = "Trash";
+}
+@using FileStorage.PL.Helpers
+
+@if (Model is null || Model.Count() == 0)
+{
+<div class="action-panel">
+    <div class="page-title">Trash</div>
+</div>
+<p>Nothing to see here...</p>
+}
+else
+{
+<div class="action-panel trash-panel">
+    <div class="page-title">Trash</div>
+    @using (Html.BeginForm("RemoveAllFromTrash", "Manage", FormMethod.Post, new { @onsubmit = "confirm_submit(this, 'Are you sure you want to delete all?');return false;" }))
+    {
+    <button class="delete-all-button" type="submit">Delete all</button>
+    }
+</div>
+<div class="files-container">
+    @foreach (var item in Model)
+        {
+    <div class="file">
+        <div class="file-name">@item.Name</div>
+        <div class="file-actions">
+            <div class="file-date">@item.CreationDate.Substring(0, 10)</div>
+            @GetSizeFromBytes.PrintFileSize(@item.Length)
+            @using (Html.BeginForm("RestoreFileFromTrash", "Manage", new { name = item.Name }, FormMethod.Post, new { @onsubmit = "confirm_submit(this, 'Are you sure you want to restore this? The file will be moved to your storage.');return false;" }))
+                    {
+            <div class="file-action" title="Restore"><button class="action-form-button" type="submit"><i class="fas fa-trash-restore-alt"></i></button></div>
+                    }
+            @using (Html.BeginForm("RemoveFileFromTrash", "Manage", new { name = item.Name }, FormMethod.Post, new { @onsubmit = "confirm_submit(this, 'Are you sure you want to delete this? The file will be deleted permanently.');return false;" }))
+                    {
+            <div class="file-action" title="Сompletely remove"><button class="action-form-button" type="submit"><i class="fas fa-times"></i></button></div>
+                    }
+        </div>
+    </div>
+        }
+</div>
+}
+@Scripts.Render("~/scripts/custom-script.js")

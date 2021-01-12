@@ -1,0 +1,32 @@
+﻿@model FileStorage.PL.Models.IndexPageViewModel
+@using FileStorage.PL.Helpers
+@{
+    ViewBag.Title = "Home";
+}
+@if (Model is null)
+{
+    <h4>Incorrect request</h4>
+}
+else
+{
+    <div class="action-panel">
+        @Html.Partial("ActionPanelPartial")
+        <p>Result on search request <b>'@TempData["SearchValue"]'</b></p>
+    </div>
+
+    if (@Model.Files.Count() == 0)
+    {
+        <h4> No files found</h4>
+    }
+    else
+    {
+        @Html.Partial("FilesContainerPartial", Model)
+        <div class="page-btn-group">
+            @if (Model.PageInfo.TotalPages > 1)
+            {
+                @Html.PageLinks(Model.PageInfo, x => Url.Action("SearchFile", new { page = x, _search = TempData["SearchValue"] }))
+            }
+        </div>
+    }
+}
+@Scripts.Render("~/scripts/custom-script.js")

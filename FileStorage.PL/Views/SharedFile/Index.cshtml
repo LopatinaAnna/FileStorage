@@ -1,0 +1,28 @@
+﻿@model FileStorage.PL.Models.SharedViewModel
+@{
+    ViewBag.Title = "Shared File";
+}
+@using FileStorage.PL.Helpers
+@if (Model is null)
+{
+    <h4>File not found</h4>
+}
+else
+{
+    <div class="action-panel">
+        <b class="page-title">Shared file</b>
+    </div>
+    <div class="files-container">
+        <div class="file">
+            <div class="file-name">@Model.Name</div>
+            <div class="file-actions">
+                @GetSizeFromBytes.PrintFileSize(Model.Length)
+                @using (Html.BeginForm("GetFile", "SharedFile", new { link = Model.SharedLink }, FormMethod.Post, new { target = "frame" }))
+                {
+                    <div class="file-action" title="Download"><button class="action-form-button" type="submit"><i class="fas fa-download"></i></button></div>
+                    <iframe class="download-frame" name="frame" style="display:none"></iframe>
+                }
+            </div>
+        </div>
+    </div>
+}

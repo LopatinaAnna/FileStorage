@@ -1,0 +1,46 @@
+﻿@model IEnumerable<FileStorage.PL.Models.SharedViewModel>
+@using FileStorage.PL.Helpers
+@{
+    ViewBag.Title = "Shared files";
+}
+@if (Model is null || Model.Count() == 0)
+{
+<div class="action-panel">
+    <div class="page-title">Shared files</div>
+</div>
+<p>You don't have shared files</p>
+}
+else
+
+{
+    string link_path = "/sharedfile/?link=";
+<div class="action-panel trash-panel">
+    <div class="page-title">Shared files</div>
+    @using (Html.BeginForm("CancelAllSharing", "Manage", FormMethod.Post, new { @onsubmit = "confirm_submit(this, 'Are you sure you want to cancel all?');return false;" }))
+        {
+    <button class="delete-all-button" type="submit">Cancel all</button>
+        }
+</div>
+<div class="files-container">
+    @foreach (var item in Model)
+        {
+    <div class="file">
+        <div class="file-name" title="@item.Name">@item.Name</div>
+        <div class="file-actions">
+            @GetSizeFromBytes.PrintFileSize(@item.Length)
+            @using (Html.BeginForm("GetFile", "Home", new { name = item.Name }, FormMethod.Post, new { target = "frame" }))
+                    {
+            <div class="file-action" title="Download"><button class="action-form-button" type="submit"><i class="fas fa-download"></i></button></div>
+            <iframe class="download-frame" name="frame" style="display:none"></iframe>
+                    }
+            <div class="file-action" title="Get link"><button class="action-form-button" type="button" onclick=alert("@link_path@item.SharedLink")><i class="fas fa-link"></i></button></div>
+
+            @using (Html.BeginForm("CancelSharing", "Manage", new { link = item.SharedLink }, FormMethod.Post, new { @onsubmit = "confirm_submit(this, 'Are you sure you want to cancel sharing this?');return false;" }))
+                    {
+            <div class="file-action" title="Cancel sharing"><button class="action-form-button" type="submit"><i class="fas fa-times"></i></button></div>
+                    }
+        </div>
+    </div>
+        }
+</div>
+}

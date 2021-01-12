@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNet.Identity
+@using FileStorage.PL.Helpers
+@{
+    ViewBag.Title = "Manage";
+}
+
+<div class="action-panel">
+    <div class="page-title">@User.Identity.GetUserName()</div>
+</div>
+<p>@ViewBag.StatusMessage</p>
+@{
+
+    long currentPercent = ViewBag.StorageSize * 100 / ViewBag.MaxStorageSize;
+    currentPercent = currentPercent == 0 ? 1 : currentPercent;
+}
+<div>
+    @string.Concat("Storage takes ", @GetSizeFromBytes.PrintStorageSize(@ViewBag.StorageSize), $" out of {@GetSizeFromBytes.PrintStorageSize(ViewBag.MaxStorageSize)}")
+    <div class="progress">
+        <div style='width: @string.Concat(@currentPercent,'%')'></div>
+    </div>
+</div>
+<br />
+@if (@User.IsInRole("admin"))
+{
+<div class="manage-link">
+    &rsaquo; @Html.ActionLink("View all users", "ViewUsers")
+</div>
+<br />
+}
+<div class="manage-link">
+    &rsaquo; @Html.ActionLink("Change Password", "ChangePassword")
+</div>
+<br />
+<div class="manage-link">
+    &rsaquo; @Html.ActionLink("Shared files", "ManageSharedFiles")
+</div>
+<br />
+<div class="manage-link">
+    &rsaquo; @Html.ActionLink("Trash", "Trash")
+</div>
+<br />

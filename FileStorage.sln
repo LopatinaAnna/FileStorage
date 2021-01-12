@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorage.PL", "FileStorage.PL\FileStorage.PL.csproj", "{6A04FFAC-53DE-40D6-90A1-E62525F7400A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5C916436-5A98-4954-BFDA-A090A5EF4308} = {5C916436-5A98-4954-BFDA-A090A5EF4308}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorage.DAL", "FileStorage.DAL\FileStorage.DAL.csproj", "{35B7BA14-FA05-4E8C-9AA4-9F6E89C8447D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorage.BLL", "FileStorage.BLL\FileStorage.BLL.csproj", "{5C916436-5A98-4954-BFDA-A090A5EF4308}"
+	ProjectSection(ProjectDependencies) = postProject
+		{35B7BA14-FA05-4E8C-9AA4-9F6E89C8447D} = {35B7BA14-FA05-4E8C-9AA4-9F6E89C8447D}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A04FFAC-53DE-40D6-90A1-E62525F7400A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A04FFAC-53DE-40D6-90A1-E62525F7400A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A04FFAC-53DE-40D6-90A1-E62525F7400A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A04FFAC-53DE-40D6-90A1-E62525F7400A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35B7BA14-FA05-4E8C-9AA4-9F6E89C8447D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B7BA14-FA05-4E8C-9AA4-9F6E89C8447D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35B7BA14-FA05-4E8C-9AA4-9F6E89C8447D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35B7BA14-FA05-4E8C-9AA4-9F6E89C8447D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C916436-5A98-4954-BFDA-A090A5EF4308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C916436-5A98-4954-BFDA-A090A5EF4308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C916436-5A98-4954-BFDA-A090A5EF4308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C916436-5A98-4954-BFDA-A090A5EF4308}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B368D9B2-DE7F-414C-9C7D-41735286A737}
+	EndGlobalSection
+EndGlobal

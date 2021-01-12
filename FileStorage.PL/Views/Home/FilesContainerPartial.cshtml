@@ -1,0 +1,36 @@
+﻿@model FileStorage.PL.Models.IndexPageViewModel
+@using FileStorage.PL.Helpers
+
+@if (Model.Files is null || Model.Files.Count() == 0)
+{
+<h4>You have 5GB space for your files!</h4>
+<p>Start using the storage, upload up to 10 files, total size should not exceed 500MB at a time.</p>
+}
+else
+{
+<div class="files-container">
+    @foreach (var item in Model.Files)
+        {
+    <div class="file">
+        <div class="file-name" title="@item.Name">@item.Name</div>
+        <div class="file-actions">
+            <div class="file-date" title="Creation date">@item.CreationDate.Substring(0, 10)</div>
+            @GetSizeFromBytes.PrintFileSize(@item.Length)
+            @using (Html.BeginForm("GetFile", "Home", new { name = item.Name }, FormMethod.Post, new { target = "frame" }))
+                    {
+            <div class="file-action" title="Download"><button class="action-form-button" type="submit"><i class="fas fa-download"></i></button></div>
+            <iframe class="download-frame" name="frame" style="display:none"></iframe>
+                    }
+            @using (Html.BeginForm("SharedFileWithLink", "Home", new { name = item.Name }, FormMethod.Post, new { @onsubmit = "confirm_submit(this, 'Are you sure you want to make this file shared?');return false;" }))
+                    {
+            <div class="file-action" title="Shared file with link"><button class="action-form-button" type="submit"><i class="fas fa-share-square"></i></button></div>
+                    }
+            @using (Html.BeginForm("RemoveFile", "Home", new { name = item.Name }, FormMethod.Post, new { @onsubmit = "confirm_submit(this, 'Are you sure you want to remove this? The file will be moved to the trash.');return false;" }))
+                    {
+            <div class="file-action" title="Remove to trash"><button class="action-form-button" type="submit"><i class="fas fa-trash"></i></button></div>
+                    }
+        </div>
+    </div>
+        }
+</div>
+}

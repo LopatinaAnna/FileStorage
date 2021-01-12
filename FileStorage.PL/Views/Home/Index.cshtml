@@ -1,0 +1,46 @@
+﻿@model FileStorage.PL.Models.IndexPageViewModel
+@using FileStorage.PL.Helpers
+@{
+    ViewBag.Title = "Home";
+}
+<div class="action-panel">
+    @Html.Partial("ActionPanelPartial")
+    <div class="sorting">
+        <div class="link-message">@TempData["ShortLink"]</div>
+        <div class="sort-panel">
+            <div class="sort">Sort by</div>
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @name = "submit-sort" }))
+            {
+            @CreateSortSelect()
+            }
+        </div>
+    </div>
+</div>
+@Html.Partial("FilesContainerPartial", Model)
+<div class="page-btn-group">
+    @if (Model.PageInfo.TotalPages > 1)
+    {
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x, sort_type = ViewBag.CurrentSort }))
+    }
+</div>
+@Scripts.Render("~/scripts/custom-script.js")
+
+@helper CreateSortSelect()
+{
+    string[] values = { "name ascending", "name descending", "size ascending", "size descending", "date ascending", "date descending" };
+    int num = 1;
+<select class="sort-select" name="select_sort_type">
+    @foreach (string item in values)
+        {
+            if (ViewBag.CurrentSort == num.ToString())
+            {
+    <option value="@num" selected>@item</option>
+            }
+            else
+            {
+    <option value="@num">@item</option>
+            }
+            num++;
+        }
+</select>
+}
